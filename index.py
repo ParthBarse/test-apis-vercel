@@ -46,7 +46,7 @@ def addUser():
 def signIn():
     users = db["client_db"]
     if request.method == "POST":  # and "usrnme" not in session:
-        user = request.json
+        user = request.form
         name = user["usrnme"]
         password = user["pwd"]
         logged_user = users.find_one({"usrnme": name})
