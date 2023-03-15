@@ -34,7 +34,7 @@ def home():
 @app.route("/addUser", methods=["POST"])
 def addUser():
     users = db['client_db']
-    user = request.json
+    user = request.form
     print(user)
     name = user['usrnme']
     pwd = bcrypt.generate_password_hash(user['pwd']).decode('utf-8')
