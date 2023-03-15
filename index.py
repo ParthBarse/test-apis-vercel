@@ -7,5 +7,5 @@ def hello_world():
     return 'Hello World!'
 
 @app.route('/home')
-def hello_world():
+def home():
     return 'home page'
