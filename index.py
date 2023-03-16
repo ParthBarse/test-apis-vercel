@@ -34,7 +34,7 @@ def home():
 @app.route("/addUser", methods=["POST"])
 def addUser():
     users = db['client_db']
-    user = request.form
+    user = request.json
     print(user)
     name = user['usrnme']
     pwd = bcrypt.generate_password_hash(user['pwd']).decode('utf-8')
@@ -46,7 +46,7 @@ def addUser():
 def signIn():
     users = db["client_db"]
     if request.method == "POST":  # and "usrnme" not in session:
-        user = request.form
+        user = request.json
         name = user["usrnme"]
         password = user["pwd"]
         logged_user = users.find_one({"usrnme": name})
