@@ -48,8 +48,8 @@ def signIn():
     if request.method == "POST":  # and "usrnme" not in session:
         # user = request.json
         # name = user["usrnme"]
-        name = request.get_json("usrnme")
-        password = request.get_json("pwd")
+        name = request.args.get("usrnme")
+        password = request.args.get("pwd")
         # password = user["pwd"]
         logged_user = users.find_one({"usrnme": name})
         print(logged_user)
