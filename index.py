@@ -45,7 +45,7 @@ def addUser():
 @app.route("/signIn", methods=["GET", "POST"])
 def signIn():
     users = db["client_db"]
-    if request.method == "POST":  # and "usrnme" not in session:
+    if request.method == "GET":  # and "usrnme" not in session:
         # user = request.json
         # name = user["usrnme"]
         name = request.args.get("usrnme")
