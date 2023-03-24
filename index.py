@@ -11,8 +11,8 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-client = MongoClient('mongodb+srv://atms:atms%40123@atms-customer.xn3tjom.mongodb.net/test')
-app.config['MONGO_URI'] = 'mongodb+srv://atms:atms%40123@atms-customer.xn3tjom.mongodb.net/test'
+client = MongoClient('mongodb+srv://vercel-admin-user-641df86deec22841cd00f989:U7MK7TOONktRvOOR@cluster0.myy76mk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+app.config['MONGO_URI'] = 'mongodb+srv://vercel-admin-user-641df86deec22841cd00f989:U7MK7TOONktRvOOR@cluster0.myy76mk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 app.config['SECRET_KEY'] = 'a6d217d048fdcd227661b755'
 db = client['Admin_BnB']
 bcrypt = Bcrypt(app)
@@ -68,3 +68,6 @@ def logout():
     name = request.args.get("usrnme")
     session.pop("usrnme", None)
     return f"{name.upper()} logged out successfully"
+
+if __name__ == '__main__':
+    app.run()
