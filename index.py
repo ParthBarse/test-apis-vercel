@@ -57,11 +57,11 @@ def signIn():
             if logged_user:
                 if bcrypt.check_password_hash(logged_user["pwd"], password):
                     session["usrnme"] = name
-                    return f"{logged_user['usrnme'].upper()} has logged in Successfully"
+                    return {"isSuccess":"True"}
                 else:
-                    return "Wrong Password"
-            return "Invalid User name or password"
-        return "Invalid operation"
+                    return {"isSuccess":"False"}
+            return {"isSuccess":"False"}
+        return {"isSuccess":"False"}
     
 @app.route("/logout")
 def logout():
