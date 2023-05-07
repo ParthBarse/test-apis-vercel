@@ -37,10 +37,19 @@ def addUser():
     user = request.json
     print(user)
     name = user['usrnme']
+    phone = user['phone']
     pwd = bcrypt.generate_password_hash(user['pwd']).decode('utf-8')
     email = user['email']
-    users.insert_one({'usrnme': name, 'pwd': pwd, 'email': email})
-    return f"{name}'s data inserted"
+    if users.find_one({"usrnme":name}) or users.find_one({"phone":phone}) or users.find_one({"email":email}):
+        return {"isSuccess":"False", "msg":"Username or Phone number or Email already exist"}
+    else:
+        users.insert_one({
+            'usrnme': name, 
+            'pwd': pwd, 
+            'email': email,
+            "phone":phone
+            })
+        return {"isSuccess":"True","msg":f"{name}'s data inserted"}
 
 @app.route("/signIn", methods=["GET", "POST"])
 def signIn():
