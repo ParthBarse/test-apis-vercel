@@ -100,15 +100,12 @@ def addbalance():
         print(logged_user)
         if logged_user:
             prev_bal = logged_user["balance"]
-            if int(prev_bal) < 10000:
-                new_bal = int(prev_bal)+int(addMoney)
-                new_data ={"$set": {
-                    "balance":new_bal
-                }}
-                users.update_one({"uid":uid}, new_data)
-                return {"isSuccess":"True", "details":{"balance":new_bal,"uid":logged_user["uid"]}}
-            else:
-                return {"isSuccess":"False", "msg":"Cannot add more than Rs 10,000"}
+            new_bal = int(prev_bal)+int(addMoney)
+            new_data ={"$set": {
+                "balance":new_bal
+            }}
+            users.update_one({"uid":uid}, new_data)
+            return {"isSuccess":"True", "details":{"balance":new_bal,"uid":logged_user["uid"]}}
         else:
             return {"isSuccess":"False", "msg":"Invalid Data"}
     
