@@ -79,7 +79,7 @@ def signIn():
             if logged_user:
                 if bcrypt.check_password_hash(logged_user["pwd"], password):
                     session["usrnme"] = name
-                    return {"isSuccess":"True", "details":{'usrnme': logged_user['usrnme'],'email': logged_user['email'],"phone":logged_user['phone'],"pic_url":"https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg","balance":logged_user["balance"],"uid":logged_user["uid"]}}
+                    return {"isSuccess":"True", "details":{'usrnme': logged_user['usrnme'],'email': logged_user['email'],"phone":logged_user['phone'],"pic_url":logged_user['pic_url'],"balance":logged_user["balance"],"uid":logged_user["uid"]}}
                 else:
                     return {"isSuccess":"False"}
             return {"isSuccess":"False"}
