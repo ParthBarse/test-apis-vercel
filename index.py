@@ -60,7 +60,7 @@ def addUser():
             'email': email,
             "phone":phone,
             "pic_url":"https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
-            "balance":"0",
+            "balance":0,
             "uid":uid
             }}
 
@@ -84,6 +84,33 @@ def signIn():
                     return {"isSuccess":"False"}
             return {"isSuccess":"False"}
         return {"isSuccess":"False"}
+    
+@app.route("/addbalance", methods=["GET"])
+def addbalance():
+    users = db["client_db"]
+    if request.method == "GET":  # and "usrnme" not in session:
+        # user = request.json
+        # name = user["usrnme"]
+        name = request.args.get("usrnme")
+        uid = request.args.get("uid")
+        uid = int(uid)
+        addMoney = request.args.get("addMoney")
+        # password = user["pwd"]
+        logged_user = users.find_one({"usrnme": name})
+        print(logged_user)
+        if logged_user:
+            prev_bal = logged_user["balance"]
+            if int(prev_bal) < 10000:
+                new_bal = int(prev_bal)+int(addMoney)
+                new_data ={"$set": {
+                    "balance":new_bal
+                }}
+                users.update_one({"uid":uid}, new_data)
+                return {"isSuccess":"True", "details":{"balance":new_bal,"uid":logged_user["uid"]}}
+            else:
+                return {"isSuccess":"False", "msg":"Cannot add more than Rs 10,000"}
+        else:
+            return {"isSuccess":"False", "msg":"Invalid Data"}
     
 @app.route("/logout")
 def logout():
