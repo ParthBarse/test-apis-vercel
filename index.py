@@ -100,7 +100,7 @@ def addbalance():
         print(logged_user)
         if logged_user:
             prev_bal = logged_user["balance"]
-            if int(prev_bal) < 10000:
+            if (int(prev_bal)+int(addMoney)) < 10000:
                 new_bal = int(prev_bal)+int(addMoney)
                 new_data ={"$set": {
                     "balance":new_bal
