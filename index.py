@@ -7,6 +7,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, curren
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_cors import CORS
+import random
 
 app = Flask(__name__)
 CORS(app)
@@ -40,16 +41,28 @@ def addUser():
     phone = user['phone']
     pwd = bcrypt.generate_password_hash(user['pwd']).decode('utf-8')
     email = user['email']
+    uid = random.getrandbits(32)
     if users.find_one({"usrnme":name}) or users.find_one({"phone":phone}) or users.find_one({"email":email}):
         return {"isSuccess":"False", "msg":"Username or Phone number or Email already exist"}
     else:
         users.insert_one({
             'usrnme': name, 
-            'pwd': pwd, 
+            'pwd': pwd,
             'email': email,
-            "phone":phone
+            "phone":phone,
+            "pic_url":"https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+            "balance":"0",
+            "uid":uid
             })
-        return {"isSuccess":"True","msg":f"{name}'s data inserted"}
+        return {"isSuccess":"True","msg":f"{name}'s data inserted", "details": {
+            'usrnme': name, 
+            'pwd': pwd,
+            'email': email,
+            "phone":phone,
+            "pic_url":"https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+            "balance":"0",
+            "uid":uid
+            }}
 
 @app.route("/signIn", methods=["GET", "POST"])
 def signIn():
@@ -66,7 +79,7 @@ def signIn():
             if logged_user:
                 if bcrypt.check_password_hash(logged_user["pwd"], password):
                     session["usrnme"] = name
-                    return {"isSuccess":"True"}
+                    return {"isSuccess":"True", "details":{'usrnme': logged_user['usrnme'],'email': logged_user['email'],"phone":logged_user['phone'],"pic_url":"https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg","balance":logged_user["balance"],"uid":logged_user["uid"]}}
                 else:
                     return {"isSuccess":"False"}
             return {"isSuccess":"False"}
