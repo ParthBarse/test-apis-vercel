@@ -190,6 +190,38 @@ def readRFID():
     if request.method == "GET":  # and "usrnme" not in session:
         rfid = request.args.get("rfid")
         return {"rfid": rfid}
+    
+@app.route("/addClient", methods=["POST"])
+def addClient():
+    users = db['client_db_esp']
+    user = request.json
+    print(user)
+    name = user['usrnme']
+    phone = user['phone']
+    pwd = bcrypt.generate_password_hash(user['pwd']).decode('utf-8')
+    email = user['email']
+    rfid = user['rfid']
+    if users.find_one({"usrnme": name}) or users.find_one({"phone": phone}) or users.find_one({"email": email}):
+        return {"isSuccess": "False", "msg": "Username or Phone number or Email already exist"}
+    else:
+        users.insert_one({
+            'usrnme': name,
+            'pwd': pwd,
+            'email': email,
+            "phone": phone,
+            "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+            "balance": "0",
+            "rfid": rfid
+        })
+        return {"isSuccess": "True", "msg": f"{name}'s data inserted", "details": {
+            'usrnme': name,
+            'pwd': pwd,
+            'email': email,
+            "phone": phone,
+            "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+            "balance": 0,
+            "rfid": rfid
+        }}
 
 @app.route("/logout")
 def logout():
