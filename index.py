@@ -186,11 +186,11 @@ def bookticket():
 
 @app.route("/readRFID", methods=["GET"])
 def readRFID():
-    users = db["client_db"]
+    users = db["client_db_esp"]
     amount_db = db['current_payment']
     if request.method == "GET":  # and "usrnme" not in session:
         rfid = request.args.get("rfid")
-        if users.find_one({"rfid":rfid}) and amount_db.find_one({"current" : "1"}):
+        if users.find_one({"rfid":rfid}):
             user_account = users.find_one({"rfid":rfid})
             user_balance = user_account["balance"]
             user_balance = int(user_balance)
