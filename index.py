@@ -187,10 +187,29 @@ def bookticket():
 @app.route("/readRFID", methods=["GET"])
 def readRFID():
     users = db["client_db"]
-    tickets = db["clients_tickets"]
+    amount_db = db['current_payment']
     if request.method == "GET":  # and "usrnme" not in session:
         rfid = request.args.get("rfid")
-        return {"rfid": rfid}
+        if users.find_one({"rfid":rfid}) and amount_db.find_one({"current" : "1"}):
+            user_account = users.find_one({"rfid":rfid})
+            user_balance = user_account["balance"]
+            user_balance = int(user_balance)
+            amount_to_deduct_obj = amount_db.find_one({"current" : "1"})
+            amount_to_deduct =  amount_to_deduct_obj["amount"]
+
+            if (int(user_balance)-int(amount_to_deduct)) <= user_balance:
+                new_bal = int(user_balance)-int(amount_to_deduct)
+                new_data = {"$set": {
+                    "balance": new_bal
+                }}
+                users.update_one({"rfid": rfid}, new_data)
+                return {"isSuccess": "True", "details": {"balance": new_bal, "uid": user_account["rfid"]}}
+            else:
+                return {"isSuccess": "False", "msg": "Try Again"}
+        else:
+            return {"msg":"RFID not found"}
+
+
 
 
 @app.route("/addClient", methods=["POST"])
@@ -232,6 +251,7 @@ def handlePayment():
     user = request.json
     print(user)
     total_amount = user['total_amount']
+    total_amount = int(total_amount)
     if users.find_one({"current": "1"}):
         data = {
             "amount":total_amount
