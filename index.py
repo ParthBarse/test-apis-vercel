@@ -181,7 +181,8 @@ def bookticket():
         else:
             return {"isSuccess": "False", "msg": "Invalid Data"}
 
-#------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------
+
 
 @app.route("/readRFID", methods=["GET"])
 def readRFID():
@@ -190,7 +191,8 @@ def readRFID():
     if request.method == "GET":  # and "usrnme" not in session:
         rfid = request.args.get("rfid")
         return {"rfid": rfid}
-    
+
+
 @app.route("/addClient", methods=["POST"])
 def addClient():
     users = db['client_db_esp']
@@ -210,7 +212,7 @@ def addClient():
             'email': email,
             "phone": phone,
             "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
-            "balance": "0",
+            "balance": 0,
             "rfid": rfid
         })
         return {"isSuccess": "True", "msg": f"{name}'s data inserted", "details": {
@@ -222,6 +224,26 @@ def addClient():
             "balance": 0,
             "rfid": rfid
         }}
+
+
+@app.route("/handlePayment", methods=["POST"])
+def handlePayment():
+    users = db['current_payment']
+    user = request.json
+    print(user)
+    total_amount = user['total_amount']
+    if users.find_one({"current": "1"}):
+        data = {
+            "amount":total_amount
+        }
+        new_values = {"$set": data}
+        users.update_one({"current": "1"}, new_values)
+        return {"msg":"Amount Updated", "total_amount":total_amount}
+    else:
+        return {"msg":"Amount not found"}
+
+# -------------------------------------------------------------------------------------------------------
+
 
 @app.route("/logout")
 def logout():
