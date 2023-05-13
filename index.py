@@ -181,6 +181,15 @@ def bookticket():
         else:
             return {"isSuccess": "False", "msg": "Invalid Data"}
 
+#------------------------------------------------------------------------------------------------------------
+
+@app.route("/readRFID", methods=["GET"])
+def readRFID():
+    users = db["client_db"]
+    tickets = db["clients_tickets"]
+    if request.method == "GET":  # and "usrnme" not in session:
+        rfid = request.args.get("rfid")
+        return {"rfid": rfid}
 
 @app.route("/logout")
 def logout():
