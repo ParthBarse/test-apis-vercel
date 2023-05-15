@@ -8,6 +8,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_cors import CORS
 import random
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -183,6 +184,78 @@ def bookticket():
 
 # ------------------------------------------------------------------------------------------------------------
 
+@app.route("/addAdmin", methods=["POST"])
+def addAdmin():
+    users = db['admin_db']
+    user = request.json
+    print(user)
+    name = user['usrnme']
+    phone = user['phone']
+    pwd = bcrypt.generate_password_hash(user['pwd']).decode('utf-8')
+    email = user['email']
+    if users.find_one({"usrnme": name}) or users.find_one({"phone": phone}) or users.find_one({"email": email}):
+        return {"isSuccess": "False", "msg": "Username or Phone number or Email already exist"}
+    else:
+        users.insert_one({
+            'usrnme': name,
+            'pwd': pwd,
+            'email': email,
+            "phone": phone,
+            "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+            "total_earning": 0,
+            "total_customers":0,
+            "total_products":0
+        })
+        return {"isSuccess": "True", "msg": f"{name}'s data inserted", "details": {
+            'usrnme': name,
+            'pwd': pwd,
+            'email': email,
+            "phone": phone,
+            "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg"
+        }}
+
+@app.route("/signInAdmin", methods=["GET", "POST"])
+def signInAdmin():
+    users = db["admin_db"]
+    if request.method == "GET":  # and "usrnme" not in session:
+        # user = request.json
+        # name = user["usrnme"]
+        name = request.args.get("usrnme")
+        password = request.args.get("pwd")
+        # password = user["pwd"]
+        logged_user = users.find_one({"usrnme": name})
+        print(logged_user)
+        if login_user:
+            if logged_user:
+                if bcrypt.check_password_hash(logged_user["pwd"], password):
+                    session["usrnme"] = name
+                    return {"isSuccess": "True", "details": {'usrnme': logged_user['usrnme'], 'email': logged_user['email'], "phone": logged_user['phone'], "pic_url": logged_user['pic_url'], "total_earning": logged_user['total_earning'], "total_customers": logged_user['total_customers'], "total_products": logged_user['total_products']}}
+                else:
+                    return {"isSuccess": "False"}
+            return {"isSuccess": "False"}
+        return {"isSuccess": "False"}
+    
+@app.route("/signInClient", methods=["GET", "POST"])
+def signInClient():
+    users = db["client_db_esp"]
+    if request.method == "GET":  # and "usrnme" not in session:
+        # user = request.json
+        # name = user["usrnme"]
+        name = request.args.get("usrnme")
+        password = request.args.get("pwd")
+        # password = user["pwd"]
+        logged_user = users.find_one({"usrnme": name})
+        print(logged_user)
+        if login_user:
+            if logged_user:
+                if bcrypt.check_password_hash(logged_user["pwd"], password):
+                    session["usrnme"] = name
+                    return {"isSuccess": "True", "details": {'usrnme': logged_user['usrnme'], 'email': logged_user['email'], "phone": logged_user['phone'], "pic_url": logged_user['pic_url'], "balance": logged_user['balance'], "rfid": logged_user['rfid']}}
+                else:
+                    return {"isSuccess": "False"}
+            return {"isSuccess": "False"}
+        return {"isSuccess": "False"}
+
 
 @app.route("/readRFID", methods=["GET"])
 def readRFID():
@@ -212,9 +285,7 @@ def readRFID():
                 return {"isSuccess": "False", "msg": "Try Again"}
         else:
             return {"msg":"RFID not found"}
-
-
-
+        
 
 @app.route("/addClient", methods=["POST"])
 def addClient():
@@ -247,6 +318,62 @@ def addClient():
             "balance": 0,
             "rfid": rfid
         }}
+    
+@app.route("/deleteClient", methods=["DELETE"])
+def deleteClient():
+    users = db["client_db_esp"]
+    rfid = request.args.get('rfid')
+    if users.find_one({"rfid": rfid}) is None:
+        return {"msg":f"{rfid} doesnot exists in the database"}
+
+    users.delete_one({"rfid": rfid})
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+    
+@app.route("/addProduct", methods=["POST"])
+def addProduct():
+    users = db['product_db_esp']
+    user = request.json
+    print(user)
+    productName = user['productName']
+    productPrice = user['productPrice']
+    pid =random.getrandbits(32)
+    users.insert_one({
+        'productName':productName,
+        'productPrice':productPrice,
+        "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+        "pid":pid
+    })
+    return {"isSuccess": "True", "msg": f"{productName}'s data inserted", "details": {
+        'productName':productName,
+        'productPrice':productPrice,
+        "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+        "pid":pid
+    }}
+
+
+@app.route("/getAllProduct", methods=["GET"])
+def getAllProduct():
+    users = db["product_db_esp"]
+    ans = []
+    for user in users.find({}):
+        ans.append({
+        "productName": user['productName'],
+        "productPrice": user['productPrice'],
+        "pic_url": user['pic_url'],
+        "pid":user['pid']
+    })
+    return ans
+
+@app.route("/deleteProduct", methods=["DELETE"])
+def deleteProduct():
+    users = db["product_db_esp"]
+    pid = request.args.get('pid')
+    pid=int(pid)
+    if users.find_one({"pid": pid}) is None:
+        return {"msg":f"{pid} doesnot exists in the database"}
+
+    users.delete_one({"pid": pid})
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 
 @app.route("/handlePayment", methods=["POST"])
@@ -265,6 +392,7 @@ def handlePayment():
         return {"msg":"Amount Updated", "total_amount":total_amount}
     else:
         return {"msg":"Amount not found"}
+    
     
 @app.route("/addbalance_esp", methods=["GET"])
 def addbalance_esp():
