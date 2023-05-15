@@ -190,20 +190,24 @@ def readRFID():
     amount_db = db['current_payment']
     if request.method == "GET":  # and "usrnme" not in session:
         rfid = request.args.get("rfid")
-        if users.find_one({"rfid":rfid}):
-            user_account = users.find_one({"rfid":rfid})
+        if users.find_one({"rfid": rfid}):
+            user_account = users.find_one({"rfid": rfid})
             user_balance = user_account["balance"]
             user_balance = int(user_balance)
-            amount_to_deduct_obj = amount_db.find_one({"current" : "1"})
-            amount_to_deduct =  amount_to_deduct_obj["amount"]
+            amount_to_deduct_obj = amount_db.find_one({"current": "1"})
+            amount_to_deduct = amount_to_deduct_obj["amount"]
 
-            if (int(user_balance)-int(amount_to_deduct)) <= user_balance:
+            if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
                 new_bal = int(user_balance)-int(amount_to_deduct)
                 new_data = {"$set": {
                     "balance": new_bal
                 }}
-                users.update_one({"rfid": rfid}, new_data)
-                return {"isSuccess": "True", "details": {"balance": new_bal, "uid": user_account["rfid"]}}
+                data = {
+                    "amount": 0
+                }
+                new_values = {"$set": data}
+                amount_db.update_one({"current": "1"}, new_values)
+                return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
             else:
                 return {"isSuccess": "False", "msg": "Try Again"}
         else:
@@ -261,6 +265,31 @@ def handlePayment():
         return {"msg":"Amount Updated", "total_amount":total_amount}
     else:
         return {"msg":"Amount not found"}
+    
+@app.route("/addbalance_esp", methods=["GET"])
+def addbalance_esp():
+    users = db["client_db_esp"]
+    if request.method == "GET":  # and "usrnme" not in session:
+        # user = request.json
+        # name = user["usrnme"]
+        rfid = request.args.get("rfid")
+        addMoney = request.args.get("addMoney")
+        # password = user["pwd"]
+        logged_user = users.find_one({"rfid": rfid})
+        print(logged_user)
+        if logged_user:
+            prev_bal = logged_user["balance"]
+            if (int(prev_bal)+int(addMoney)) <= 20000:
+                new_bal = int(prev_bal)+int(addMoney)
+                new_data = {"$set": {
+                    "balance": new_bal
+                }}
+                users.update_one({"rfid": rfid}, new_data)
+                return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": logged_user["rfid"]}}
+            else:
+                return {"isSuccess": "False", "msg": "Cannot add more than Rs 20,000"}
+        else:
+            return {"isSuccess": "False", "msg": "Invalid Data"}
 
 # -------------------------------------------------------------------------------------------------------
 
