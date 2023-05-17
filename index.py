@@ -279,6 +279,7 @@ def readRFID():
                 data = {
                     "amount": 0
                 }
+                users.update_one({"rfid":rfid}, new_data)
                 new_values = {"$set": data}
                 amount_db.update_one({"current": "1"}, new_values)
                 return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
