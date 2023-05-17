@@ -55,7 +55,7 @@ def addUser():
             'pwd': pwd,
             'email': email,
             "phone": phone,
-            "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+            "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4=",
             "balance": "0",
             "uid": uid
         })
@@ -64,7 +64,7 @@ def addUser():
             'pwd': pwd,
             'email': email,
             "phone": phone,
-            "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+            "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4=",
             "balance": 0,
             "uid": uid
         }}
@@ -201,7 +201,7 @@ def addAdmin():
             'pwd': pwd,
             'email': email,
             "phone": phone,
-            "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+            "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4=",
             "total_earning": 0,
             "total_customers":0,
             "total_products":0
@@ -211,7 +211,7 @@ def addAdmin():
             'pwd': pwd,
             'email': email,
             "phone": phone,
-            "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg"
+            "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4="
         }}
 
 @app.route("/signInAdmin", methods=["GET", "POST"])
@@ -234,6 +234,7 @@ def signInAdmin():
                     return {"isSuccess": "False"}
             return {"isSuccess": "False"}
         return {"isSuccess": "False"}
+    
     
 @app.route("/signInClient", methods=["GET", "POST"])
 def signInClient():
@@ -305,7 +306,7 @@ def addClient():
             'pwd': pwd,
             'email': email,
             "phone": phone,
-            "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+            "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4=",
             "balance": 0,
             "rfid": rfid
         })
@@ -314,7 +315,7 @@ def addClient():
             'pwd': pwd,
             'email': email,
             "phone": phone,
-            "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+            "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4=",
             "balance": 0,
             "rfid": rfid
         }}
@@ -340,13 +341,13 @@ def addProduct():
     users.insert_one({
         'productName':productName,
         'productPrice':productPrice,
-        "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+        "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4=",
         "pid":pid
     })
     return {"isSuccess": "True", "msg": f"{productName}'s data inserted", "details": {
         'productName':productName,
         'productPrice':productPrice,
-        "pic_url": "https://png.pngtree.com/png-clipart/20190924/original/pngtree-user-vector-avatar-png-image_4830521.jpg",
+        "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4=",
         "pid":pid
     }}
 
