@@ -184,6 +184,7 @@ def bookticket():
 
 # ------------------------------------------------------------------------------------------------------------
 
+
 @app.route("/addAdmin", methods=["POST"])
 def addAdmin():
     users = db['admin_db']
@@ -203,8 +204,8 @@ def addAdmin():
             "phone": phone,
             "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4=",
             "total_earning": 0,
-            "total_customers":0,
-            "total_products":0
+            "total_customers": 0,
+            "total_products": 0
         })
         return {"isSuccess": "True", "msg": f"{name}'s data inserted", "details": {
             'usrnme': name,
@@ -213,6 +214,7 @@ def addAdmin():
             "phone": phone,
             "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4="
         }}
+
 
 @app.route("/signInAdmin", methods=["GET", "POST"])
 def signInAdmin():
@@ -234,8 +236,8 @@ def signInAdmin():
                     return {"isSuccess": "False"}
             return {"isSuccess": "False"}
         return {"isSuccess": "False"}
-    
-    
+
+
 @app.route("/signInClient", methods=["GET", "POST"])
 def signInClient():
     users = db["client_db_esp"]
@@ -262,6 +264,7 @@ def signInClient():
 def readRFID():
     users = db["client_db_esp"]
     amount_db = db['current_payment']
+    transaction_details_esp = db['transaction_details_esp']
     if request.method == "GET":  # and "usrnme" not in session:
         rfid = request.args.get("rfid")
         if users.find_one({"rfid": rfid}):
@@ -279,15 +282,15 @@ def readRFID():
                 data = {
                     "amount": 0
                 }
-                users.update_one({"rfid":rfid}, new_data)
+                users.update_one({"rfid": rfid}, new_data)
                 new_values = {"$set": data}
                 amount_db.update_one({"current": "1"}, new_values)
                 return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
             else:
                 return {"isSuccess": "False", "msg": "Try Again"}
         else:
-            return {"msg":"RFID not found"}
-        
+            return {"msg": "RFID not found"}
+
 
 @app.route("/addClient", methods=["POST"])
 def addClient():
@@ -320,17 +323,19 @@ def addClient():
             "balance": 0,
             "rfid": rfid
         }}
-    
+
+
 @app.route("/deleteClient", methods=["DELETE"])
 def deleteClient():
     users = db["client_db_esp"]
     rfid = request.args.get('rfid')
     if users.find_one({"rfid": rfid}) is None:
-        return {"msg":f"{rfid} doesnot exists in the database"}
+        return {"msg": f"{rfid} doesnot exists in the database"}
 
     users.delete_one({"rfid": rfid})
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
-    
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
 @app.route("/addProduct", methods=["POST"])
 def addProduct():
     users = db['product_db_esp']
@@ -338,18 +343,18 @@ def addProduct():
     print(user)
     productName = user['productName']
     productPrice = user['productPrice']
-    pid =random.getrandbits(32)
+    pid = random.getrandbits(32)
     users.insert_one({
-        'productName':productName,
-        'productPrice':productPrice,
+        'productName': productName,
+        'productPrice': productPrice,
         "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4=",
-        "pid":pid
+        "pid": pid
     })
     return {"isSuccess": "True", "msg": f"{productName}'s data inserted", "details": {
-        'productName':productName,
-        'productPrice':productPrice,
+        'productName': productName,
+        'productPrice': productPrice,
         "pic_url": "https://media.istockphoto.com/id/962353378/vector/fast-food-line-icon.jpg?s=612x612&w=0&k=20&c=xD9-KlVj_w4hqhlB6VnsnTqcaumATgDnywNdhrhOok4=",
-        "pid":pid
+        "pid": pid
     }}
 
 
@@ -359,23 +364,40 @@ def getAllProduct():
     ans = []
     for user in users.find({}):
         ans.append({
-        "productName": user['productName'],
-        "productPrice": user['productPrice'],
-        "pic_url": user['pic_url'],
-        "pid":user['pid']
-    })
+            "productName": user['productName'],
+            "productPrice": user['productPrice'],
+            "pic_url": user['pic_url'],
+            "pid": user['pid']
+        })
     return ans
+
+
+@app.route("/getAllClient", methods=["GET"])
+def getAllClient():
+    users = db["client_db_esp"]
+    ans = []
+    for user in users.find({}):
+        ans.append({
+            "usrnme": user["usrnme"],
+            "email": user["email"],
+            "phone": user["phone"],
+            "pic_url": user["pic_url"],
+            "balance": user["balance"],
+            "rfid": user["rfid"]
+        })
+    return ans
+
 
 @app.route("/deleteProduct", methods=["DELETE"])
 def deleteProduct():
     users = db["product_db_esp"]
     pid = request.args.get('pid')
-    pid=int(pid)
+    pid = int(pid)
     if users.find_one({"pid": pid}) is None:
-        return {"msg":f"{pid} doesnot exists in the database"}
+        return {"msg": f"{pid} doesnot exists in the database"}
 
     users.delete_one({"pid": pid})
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 
 @app.route("/handlePayment", methods=["POST"])
@@ -387,15 +409,15 @@ def handlePayment():
     total_amount = int(total_amount)
     if users.find_one({"current": "1"}):
         data = {
-            "amount":total_amount
+            "amount": total_amount
         }
         new_values = {"$set": data}
         users.update_one({"current": "1"}, new_values)
-        return {"msg":"Amount Updated", "total_amount":total_amount}
+        return {"msg": "Amount Updated", "total_amount": total_amount}
     else:
-        return {"msg":"Amount not found"}
-    
-    
+        return {"msg": "Amount not found"}
+
+
 @app.route("/addbalance_esp", methods=["GET"])
 def addbalance_esp():
     users = db["client_db_esp"]
