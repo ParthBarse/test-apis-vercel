@@ -537,11 +537,11 @@ def deleteProduct():
 
 @app.route("/handlePayment", methods=["POST"])
 def handlePayment():
-    users1 = db['current_payment1']
-    users2 = db['current_payment2']
-    users3 = db['current_payment3']
-    users4 = db['current_payment4']
-    users5 = db['current_payment5']
+    users1 = db['current_payment_1']
+    users2 = db['current_payment_2']
+    users3 = db['current_payment_3']
+    users4 = db['current_payment_4']
+    users5 = db['current_payment_5']
     user = request.json
     print(user)
     total_amount = user['total_amount']
