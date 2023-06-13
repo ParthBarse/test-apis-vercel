@@ -186,7 +186,7 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_1.update_one({"current": "1"}, new_values)
-                    d1 = user_account['usrnme'] + " Pay " + amount_to_deduct + " Successfully."
+                    d1 = user_account['usrnme'] + " Pay " + str(amount_to_deduct) + " Successfully."
 
                     if transaction_details_esp.find_one({"rfid": rfid}):
                         user_t_details = transaction_details_esp.find_one({"rfid":rfid})
@@ -237,7 +237,7 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_2.update_one({"current": "1"}, new_values)
-                    d1 = user_account['usrnme'] + " Pay " + amount_to_deduct + " Successfully."
+                    d1 = user_account['usrnme'] + " Pay " + str(amount_to_deduct) + " Successfully."
 
                     if transaction_details_esp.find_one({"rfid": rfid}):
                         user_t_details = transaction_details_esp.find_one({"rfid":rfid})
@@ -288,7 +288,7 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_3.update_one({"current": "1"}, new_values)
-                    d1 = user_account['usrnme'] + " Pay " + amount_to_deduct + " Successfully."
+                    d1 = user_account['usrnme'] + " Pay " + str(amount_to_deduct) + " Successfully."
 
                     if transaction_details_esp.find_one({"rfid": rfid}):
                         user_t_details = transaction_details_esp.find_one({"rfid":rfid})
@@ -339,7 +339,7 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_4.update_one({"current": "1"}, new_values)
-                    d1 = user_account['usrnme'] + " Pay " + amount_to_deduct + " Successfully."
+                    d1 = user_account['usrnme'] + " Pay " + str(amount_to_deduct) + " Successfully."
 
                     if transaction_details_esp.find_one({"rfid": rfid}):
                         user_t_details = transaction_details_esp.find_one({"rfid":rfid})
@@ -390,7 +390,7 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_5.update_one({"current": "1"}, new_values)
-                    d1 = user_account['usrnme'] + " Pay " + amount_to_deduct + " Successfully."
+                    d1 = user_account['usrnme'] + " Pay " + str(amount_to_deduct) + " Successfully."
 
                     if transaction_details_esp.find_one({"rfid": rfid}):
                         user_t_details = transaction_details_esp.find_one({"rfid":rfid})
