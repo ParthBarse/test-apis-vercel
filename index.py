@@ -89,9 +89,9 @@ def signInAdmin():
                 if bcrypt.check_password_hash(logged_user["pwd"], password):
                     session["usrnme"] = name
                     clients = clients_db.find({})
-                    clients_no = len(clients)
+                    clients_no = clients_db.count_documents({})
                     products = products_db.find({})
-                    products_no = len(products)
+                    products_no = products_db.count_documents({})
                     return {"isSuccess": "True", "details": {'usrnme': logged_user['usrnme'], 'email': logged_user['email'], "phone": logged_user['phone'], "pic_url": logged_user['pic_url'], "total_earning": logged_user['total_earning'], "total_customers": clients_no, "total_products": products_no}}
                 else:
                     return {"isSuccess": "False"}
@@ -132,9 +132,9 @@ def getAdminDetails():
         print(logged_user)
         if logged_user:
             clients = clients_db.find({})
-            clients_no = len(clients)
+            clients_no = clients_db.count_documents({})
             products = products_db.find({})
-            products_no = len(products)
+            products_no = products_db.count_documents({})
             return {"isSuccess": "True", "details": {'usrnme': logged_user['usrnme'], 'email': logged_user['email'], "phone": logged_user['phone'], "pic_url": logged_user['pic_url'], "total_earning": logged_user['total_earning'], "total_customers": clients_no, "total_products": products_no}}
         else:
             return {"isSuccess": "False"}
@@ -394,7 +394,7 @@ def readRFID():
 
                     if transaction_details_esp.find_one({"rfid": rfid}):
                         user_t_details = transaction_details_esp.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": t_data}
+                        new_values_1 = {"$set": user_t_details}
                         transaction_details_esp.update_one(
                             {"rfid": rfid}, new_values_1)
                     else:
