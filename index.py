@@ -458,11 +458,13 @@ def handlePayment():
     total_amount = user['total_amount']
     total_amount = int(total_amount)
     adminName = user['adminName']
+    productList = user['productList']
 
     if adminName == "admin1":
         if users1.find_one({"current": "1"}):
             data = {
-                "amount": total_amount
+                "amount": total_amount,
+                "productList": productList
             }
             new_values = {"$set": data}
             users1.update_one({"current": "1"}, new_values)
@@ -473,7 +475,8 @@ def handlePayment():
     elif adminName == "admin2":
         if users2.find_one({"current": "1"}):
             data = {
-                "amount": total_amount
+                "amount": total_amount,
+                "productList": productList
             }
             new_values = {"$set": data}
             users2.update_one({"current": "1"}, new_values)
@@ -484,7 +487,8 @@ def handlePayment():
     elif adminName == "admin3":
         if users3.find_one({"current": "1"}):
             data = {
-                "amount": total_amount
+                "amount": total_amount,
+                "productList": productList
             }
             new_values = {"$set": data}
             users3.update_one({"current": "1"}, new_values)
@@ -495,7 +499,8 @@ def handlePayment():
     elif adminName == "admin4":
         if users4.find_one({"current": "1"}):
             data = {
-                "amount": total_amount
+                "amount": total_amount,
+                "productList": productList
             }
             new_values = {"$set": data}
             users4.update_one({"current": "1"}, new_values)
@@ -506,7 +511,8 @@ def handlePayment():
     elif adminName == "admin5":
         if users5.find_one({"current": "1"}):
             data = {
-                "amount": total_amount
+                "amount": total_amount,
+                "productList": productList
             }
             new_values = {"$set": data}
             users5.update_one({"current": "1"}, new_values)
