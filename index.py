@@ -166,7 +166,6 @@ def readRFID():
     if request.method == "GET":  # and "usrnme" not in session:
         rfid = request.args.get("rfid")
         adminName = request.args.get("adminName")
-        purchasedItems = request.args.get("productList")
 
         if adminName == "admin1":
             if users.find_one({"rfid": rfid}):
@@ -175,8 +174,13 @@ def readRFID():
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_1.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
+                purchasedItems = amount_to_deduct_obj["productList"]
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
+
+                    if amount_to_deduct == 0:
+                        return {"isSuccess": "False", "msg": "No amount deducted"}
+                    
                     new_bal = int(user_balance)-int(amount_to_deduct)
                     new_data = {"$set": {
                         "balance": new_bal
@@ -210,6 +214,10 @@ def readRFID():
                 amount_to_deduct = amount_to_deduct_obj["amount"]
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
+
+                    if amount_to_deduct == 0:
+                        return {"isSuccess": "False", "msg": "No amount deducted"}
+                    
                     new_bal = int(user_balance)-int(amount_to_deduct)
                     new_data = {"$set": {
                         "balance": new_bal
@@ -243,6 +251,10 @@ def readRFID():
                 amount_to_deduct = amount_to_deduct_obj["amount"]
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
+
+                    if amount_to_deduct == 0:
+                        return {"isSuccess": "False", "msg": "No amount deducted"}
+                    
                     new_bal = int(user_balance)-int(amount_to_deduct)
                     new_data = {"$set": {
                         "balance": new_bal
@@ -276,6 +288,10 @@ def readRFID():
                 amount_to_deduct = amount_to_deduct_obj["amount"]
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
+
+                    if amount_to_deduct == 0:
+                        return {"isSuccess": "False", "msg": "No amount deducted"}
+                    
                     new_bal = int(user_balance)-int(amount_to_deduct)
                     new_data = {"$set": {
                         "balance": new_bal
@@ -309,6 +325,10 @@ def readRFID():
                 amount_to_deduct = amount_to_deduct_obj["amount"]
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
+
+                    if amount_to_deduct == 0:
+                        return {"isSuccess": "False", "msg": "No amount deducted"}
+                    
                     new_bal = int(user_balance)-int(amount_to_deduct)
                     new_data = {"$set": {
                         "balance": new_bal
