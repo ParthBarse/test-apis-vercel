@@ -166,7 +166,7 @@ def readRFID():
     if request.method == "GET":  # and "usrnme" not in session:
         rfid = request.args.get("rfid")
         adminName = request.args.get("adminName")
-        purchasedItems = request.args.get("purchasedItems")
+        purchasedItems = request.args.get("productList")
 
         if adminName == "admin1":
             if users.find_one({"rfid": rfid}):
