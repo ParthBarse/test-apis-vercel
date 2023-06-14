@@ -166,6 +166,7 @@ def readRFID():
     if request.method == "GET":  # and "usrnme" not in session:
         rfid = request.args.get("rfid")
         adminName = request.args.get("adminName")
+        purchasedItems = request.args.get("purchasedItems")
 
         if adminName == "admin1":
             if users.find_one({"rfid": rfid}):
@@ -186,37 +187,15 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_1.update_one({"current": "1"}, new_values)
-                    d1 = user_account['usrnme'] + " Pay " + str(amount_to_deduct) + " Successfully."
 
-                    if transaction_details_esp.find_one({"rfid": rfid}):
-                        user_t_details = transaction_details_esp.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": t_data}
-                        transaction_details_esp.update_one(
-                            {"rfid": rfid}, new_values_1)
-                    else:
-                        t_data = {
-                            "rfid": rfid,
-                            "data": [d1]
-                        }
-                        transaction_details_esp.insert_one(t_data)
-
-                    if transaction_details_esp_1.find_one({"rfid": rfid}):
-                        user_t_details = transaction_details_esp_1.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": t_data}
-                        transaction_details_esp_1.update_one(
-                            {"rfid": rfid}, new_values_1)
-                    else:
-                        t_data = {
-                            "rfid": rfid,
-                            "data": [d1]
-                        }
-                        transaction_details_esp_1.insert_one(t_data)
-
+                    transaction_details_esp.insert_one(purchasedItems)
+                    transaction_details_esp_1.insert_one(purchasedItems)
+                    
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
                     return {"isSuccess": "False", "msg": "Try Again"}
             else:
-                return {"msg": "RFID not found"}
+                return {"isSuccess": "False","msg": "RFID not found"}
         
         elif adminName == "admin2":
             if users.find_one({"rfid": rfid}):
@@ -237,32 +216,10 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_2.update_one({"current": "1"}, new_values)
-                    d1 = user_account['usrnme'] + " Pay " + str(amount_to_deduct) + " Successfully."
 
-                    if transaction_details_esp.find_one({"rfid": rfid}):
-                        user_t_details = transaction_details_esp.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": t_data}
-                        transaction_details_esp.update_one(
-                            {"rfid": rfid}, new_values_1)
-                    else:
-                        t_data = {
-                            "rfid": rfid,
-                            "data": [d1]
-                        }
-                        transaction_details_esp.insert_one(t_data)
-
-                    if transaction_details_esp_2.find_one({"rfid": rfid}):
-                        user_t_details = transaction_details_esp_2.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": t_data}
-                        transaction_details_esp_2.update_one(
-                            {"rfid": rfid}, new_values_1)
-                    else:
-                        t_data = {
-                            "rfid": rfid,
-                            "data": [d1]
-                        }
-                        transaction_details_esp_2.insert_one(t_data)
-
+                    transaction_details_esp.insert_one(purchasedItems)
+                    transaction_details_esp_2.insert_one(purchasedItems)
+                    
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
                     return {"isSuccess": "False", "msg": "Try Again"}
@@ -288,32 +245,10 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_3.update_one({"current": "1"}, new_values)
-                    d1 = user_account['usrnme'] + " Pay " + str(amount_to_deduct) + " Successfully."
 
-                    if transaction_details_esp.find_one({"rfid": rfid}):
-                        user_t_details = transaction_details_esp.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": t_data}
-                        transaction_details_esp.update_one(
-                            {"rfid": rfid}, new_values_1)
-                    else:
-                        t_data = {
-                            "rfid": rfid,
-                            "data": [d1]
-                        }
-                        transaction_details_esp.insert_one(t_data)
-
-                    if transaction_details_esp_3.find_one({"rfid": rfid}):
-                        user_t_details = transaction_details_esp_3.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": t_data}
-                        transaction_details_esp_3.update_one(
-                            {"rfid": rfid}, new_values_1)
-                    else:
-                        t_data = {
-                            "rfid": rfid,
-                            "data": [d1]
-                        }
-                        transaction_details_esp_3.insert_one(t_data)
-
+                    transaction_details_esp.insert_one(purchasedItems)
+                    transaction_details_esp_3.insert_one(purchasedItems)
+                    
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
                     return {"isSuccess": "False", "msg": "Try Again"}
@@ -339,32 +274,10 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_4.update_one({"current": "1"}, new_values)
-                    d1 = user_account['usrnme'] + " Pay " + str(amount_to_deduct) + " Successfully."
 
-                    if transaction_details_esp.find_one({"rfid": rfid}):
-                        user_t_details = transaction_details_esp.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": t_data}
-                        transaction_details_esp.update_one(
-                            {"rfid": rfid}, new_values_1)
-                    else:
-                        t_data = {
-                            "rfid": rfid,
-                            "data": [d1]
-                        }
-                        transaction_details_esp.insert_one(t_data)
-
-                    if transaction_details_esp_4.find_one({"rfid": rfid}):
-                        user_t_details = transaction_details_esp_4.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": t_data}
-                        transaction_details_esp_4.update_one(
-                            {"rfid": rfid}, new_values_1)
-                    else:
-                        t_data = {
-                            "rfid": rfid,
-                            "data": [d1]
-                        }
-                        transaction_details_esp_4.insert_one(t_data)
-
+                    transaction_details_esp.insert_one(purchasedItems)
+                    transaction_details_esp_4.insert_one(purchasedItems)
+                    
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
                     return {"isSuccess": "False", "msg": "Try Again"}
@@ -390,31 +303,9 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_5.update_one({"current": "1"}, new_values)
-                    d1 = user_account['usrnme'] + " Pay " + str(amount_to_deduct) + " Successfully."
 
-                    if transaction_details_esp.find_one({"rfid": rfid}):
-                        user_t_details = transaction_details_esp.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": user_t_details}
-                        transaction_details_esp.update_one(
-                            {"rfid": rfid}, new_values_1)
-                    else:
-                        t_data = {
-                            "rfid": rfid,
-                            "data": [d1]
-                        }
-                        transaction_details_esp.insert_one(t_data)
-
-                    if transaction_details_esp_5.find_one({"rfid": rfid}):
-                        user_t_details = transaction_details_esp_5.find_one({"rfid":rfid})
-                        new_values_1 = {"$set": t_data}
-                        transaction_details_esp_5.update_one(
-                            {"rfid": rfid}, new_values_1)
-                    else:
-                        t_data = {
-                            "rfid": rfid,
-                            "data": [d1]
-                        }
-                        transaction_details_esp_5.insert_one(t_data)
+                    transaction_details_esp.insert_one(purchasedItems)
+                    transaction_details_esp_5.insert_one(purchasedItems)
 
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
