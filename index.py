@@ -187,9 +187,13 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_1.update_one({"current": "1"}, new_values)
+                    
+                    data = {
+                        "purchase":purchasedItems
+                    }
 
-                    transaction_details_esp.insert_one(purchasedItems)
-                    transaction_details_esp_1.insert_one(purchasedItems)
+                    transaction_details_esp.insert_one(data)
+                    transaction_details_esp_1.insert_one(data)
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -217,8 +221,12 @@ def readRFID():
                     new_values = {"$set": data}
                     amount_db_2.update_one({"current": "1"}, new_values)
 
-                    transaction_details_esp.insert_one(purchasedItems)
-                    transaction_details_esp_2.insert_one(purchasedItems)
+                    data = {
+                        "purchase":purchasedItems
+                    }
+
+                    transaction_details_esp.insert_one(data)
+                    transaction_details_esp_2.insert_one(data)
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -246,8 +254,12 @@ def readRFID():
                     new_values = {"$set": data}
                     amount_db_3.update_one({"current": "1"}, new_values)
 
-                    transaction_details_esp.insert_one(purchasedItems)
-                    transaction_details_esp_3.insert_one(purchasedItems)
+                    data = {
+                        "purchase":purchasedItems
+                    }
+
+                    transaction_details_esp.insert_one(data)
+                    transaction_details_esp_3.insert_one(data)
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -275,8 +287,12 @@ def readRFID():
                     new_values = {"$set": data}
                     amount_db_4.update_one({"current": "1"}, new_values)
 
-                    transaction_details_esp.insert_one(purchasedItems)
-                    transaction_details_esp_4.insert_one(purchasedItems)
+                    data = {
+                        "purchase":purchasedItems
+                    }
+
+                    transaction_details_esp.insert_one(data)
+                    transaction_details_esp_4.insert_one(data)
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -304,8 +320,12 @@ def readRFID():
                     new_values = {"$set": data}
                     amount_db_5.update_one({"current": "1"}, new_values)
 
-                    transaction_details_esp.insert_one(purchasedItems)
-                    transaction_details_esp_5.insert_one(purchasedItems)
+                    data = {
+                        "purchase":purchasedItems
+                    }
+
+                    transaction_details_esp.insert_one(data)
+                    transaction_details_esp_5.insert_one(data)
 
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
