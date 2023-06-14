@@ -319,6 +319,43 @@ def readRFID():
             else:
                 return {"msg": "RFID not found"}
             
+        # elif adminName == "admin5":
+        #     if users.find_one({"rfid": rfid}):
+        #         user_account = users.find_one({"rfid": rfid})
+        #         user_balance = user_account["balance"]
+        #         user_balance = int(user_balance)
+        #         amount_to_deduct_obj = amount_db_5.find_one({"current": "1"})
+        #         amount_to_deduct = amount_to_deduct_obj["amount"]
+
+        #         if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0  and amount_to_deduct != 0:
+
+        #             # if amount_to_deduct == 0:
+        #             #     return {"isSuccess": "False", "msg": "No amount deducted"}
+                    
+        #             new_bal = int(user_balance)-int(amount_to_deduct)
+        #             new_data = {"$set": {
+        #                 "balance": new_bal
+        #             }}
+        #             data = {
+        #                 "amount": 0
+        #             }
+        #             users.update_one({"rfid": rfid}, new_data)
+        #             new_values = {"$set": data}
+        #             amount_db_5.update_one({"current": "1"}, new_values)
+
+        #             data = {
+        #                 "purchase":purchasedItems
+        #             }
+
+        #             transaction_details_esp.insert_one(data)
+        #             transaction_details_esp_5.insert_one(data)
+
+        #             return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
+        #         else:
+        #             return {"isSuccess": "False", "msg": "Try Again"}
+        #     else:
+        #         return {"msg": "RFID not found"}
+        
         elif adminName == "admin5":
             if users.find_one({"rfid": rfid}):
                 user_account = users.find_one({"rfid": rfid})
@@ -326,6 +363,7 @@ def readRFID():
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_5.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
+                purchasedItems = amount_to_deduct_obj["productList"]
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0  and amount_to_deduct != 0:
 
@@ -349,12 +387,13 @@ def readRFID():
 
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_5.insert_one(data)
-
+                    
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
                     return {"isSuccess": "False", "msg": "Try Again"}
             else:
                 return {"msg": "RFID not found"}
+            
         else:
             return {"msg": "Error, Invalid Admin Name"}
         
