@@ -178,8 +178,8 @@ def readRFID():
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
 
-                    if amount_to_deduct == 0:
-                        return {"isSuccess": "False", "msg": "No amount deducted"}
+                    # if amount_to_deduct == 0:
+                    #     return {"isSuccess": "False", "msg": "No amount deducted"}
                     
                     new_bal = int(user_balance)-int(amount_to_deduct)
                     new_data = {"$set": {
@@ -212,11 +212,12 @@ def readRFID():
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_2.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
+                purchasedItems = amount_to_deduct_obj["productList"]
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
 
-                    if amount_to_deduct == 0:
-                        return {"isSuccess": "False", "msg": "No amount deducted"}
+                    # if amount_to_deduct == 0:
+                    #     return {"isSuccess": "False", "msg": "No amount deducted"}
                     
                     new_bal = int(user_balance)-int(amount_to_deduct)
                     new_data = {"$set": {
@@ -249,11 +250,12 @@ def readRFID():
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_3.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
+                purchasedItems = amount_to_deduct_obj["productList"]
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
 
-                    if amount_to_deduct == 0:
-                        return {"isSuccess": "False", "msg": "No amount deducted"}
+                    # if amount_to_deduct == 0:
+                    #     return {"isSuccess": "False", "msg": "No amount deducted"}
                     
                     new_bal = int(user_balance)-int(amount_to_deduct)
                     new_data = {"$set": {
@@ -286,11 +288,12 @@ def readRFID():
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_4.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
+                purchasedItems = amount_to_deduct_obj["productList"]
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
 
-                    if amount_to_deduct == 0:
-                        return {"isSuccess": "False", "msg": "No amount deducted"}
+                    # if amount_to_deduct == 0:
+                    #     return {"isSuccess": "False", "msg": "No amount deducted"}
                     
                     new_bal = int(user_balance)-int(amount_to_deduct)
                     new_data = {"$set": {
@@ -326,8 +329,8 @@ def readRFID():
 
                 if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
 
-                    if amount_to_deduct == 0:
-                        return {"isSuccess": "False", "msg": "No amount deducted"}
+                    # if amount_to_deduct == 0:
+                    #     return {"isSuccess": "False", "msg": "No amount deducted"}
                     
                     new_bal = int(user_balance)-int(amount_to_deduct)
                     new_data = {"$set": {
