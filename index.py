@@ -176,7 +176,7 @@ def readRFID():
                 amount_to_deduct = amount_to_deduct_obj["amount"]
                 purchasedItems = amount_to_deduct_obj["productList"]
 
-                if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
+                if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0  and amount_to_deduct != 0:
 
                     # if amount_to_deduct == 0:
                     #     return {"isSuccess": "False", "msg": "No amount deducted"}
@@ -214,7 +214,7 @@ def readRFID():
                 amount_to_deduct = amount_to_deduct_obj["amount"]
                 purchasedItems = amount_to_deduct_obj["productList"]
 
-                if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
+                if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0  and amount_to_deduct != 0:
 
                     # if amount_to_deduct == 0:
                     #     return {"isSuccess": "False", "msg": "No amount deducted"}
@@ -252,7 +252,7 @@ def readRFID():
                 amount_to_deduct = amount_to_deduct_obj["amount"]
                 purchasedItems = amount_to_deduct_obj["productList"]
 
-                if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
+                if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0  and amount_to_deduct != 0:
 
                     # if amount_to_deduct == 0:
                     #     return {"isSuccess": "False", "msg": "No amount deducted"}
@@ -290,7 +290,7 @@ def readRFID():
                 amount_to_deduct = amount_to_deduct_obj["amount"]
                 purchasedItems = amount_to_deduct_obj["productList"]
 
-                if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
+                if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0  and amount_to_deduct != 0:
 
                     # if amount_to_deduct == 0:
                     #     return {"isSuccess": "False", "msg": "No amount deducted"}
@@ -327,7 +327,7 @@ def readRFID():
                 amount_to_deduct_obj = amount_db_5.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
 
-                if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0:
+                if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0  and amount_to_deduct != 0:
 
                     # if amount_to_deduct == 0:
                     #     return {"isSuccess": "False", "msg": "No amount deducted"}
