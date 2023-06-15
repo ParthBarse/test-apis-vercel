@@ -173,6 +173,7 @@ def readRFID():
             if users.find_one({"rfid": rfid}):
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
+                user_name = user_account["usrnme"]
 
                 admin_account = admin_db.find_one({"usrnme": adminName})
                 admin_earning = admin_account["total_earning"]
@@ -282,6 +283,7 @@ def readRFID():
             if users.find_one({"rfid": rfid}):
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
+                user_name = user_account["usrnme"]
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_3.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
@@ -334,6 +336,7 @@ def readRFID():
             if users.find_one({"rfid": rfid}):
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
+                user_name = user_account["usrnme"]
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_4.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
@@ -386,6 +389,7 @@ def readRFID():
         #     if users.find_one({"rfid": rfid}):
         #         user_account = users.find_one({"rfid": rfid})
         #         user_balance = user_account["balance"]
+        #         user_name = user_account["usrnme"]
         #         user_balance = int(user_balance)
         #         amount_to_deduct_obj = amount_db_5.find_one({"current": "1"})
         #         amount_to_deduct = amount_to_deduct_obj["amount"]
@@ -423,6 +427,7 @@ def readRFID():
             if users.find_one({"rfid": rfid}):
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
+                user_name = user_account["usrnme"]
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_5.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
