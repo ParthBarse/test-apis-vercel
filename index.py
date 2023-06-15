@@ -248,8 +248,7 @@ def readRFID():
                     new_values = {"$set": data}
                     amount_db_2.update_one({"current": "1"}, new_values)
 
-                    for item in purchasedItems:
-                        item["username"] = user_name
+                    purchasedItems = [{**item, "username": user_name} for item in purchasedItems]
 
                     data = {
                         "purchase":purchasedItems
