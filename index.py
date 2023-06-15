@@ -145,6 +145,8 @@ def getAdminDetails():
 @app.route("/readRFID", methods=["GET"])
 def readRFID():
     users = db["client_db_esp"]
+    admin_db = db["admin_db"]
+
     amount_db = db['current_payment']
     transaction_details_esp = db['transaction_details_esp']
 
@@ -171,6 +173,10 @@ def readRFID():
             if users.find_one({"rfid": rfid}):
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
+
+                admin_account = admin_db.find_one({"usrnme": adminName})
+                admin_earning = admin_account["total_earning"]
+                
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_1.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
@@ -198,6 +204,17 @@ def readRFID():
 
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_1.insert_one(data)
+
+                    admin_account = admin_db.find_one({"usrnme": adminName})
+                    admin_earning = admin_account["total_earning"]
+
+                    total_earning = admin_earning + amount_to_deduct
+
+                    new_earning = {"$set": {
+                        "total_earning": total_earning
+                    }}
+
+                    admin_db.update_one({"usrnme": adminName}, new_earning)
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -209,6 +226,7 @@ def readRFID():
             if users.find_one({"rfid": rfid}):
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
+                user_name = user_account["usrnme"]
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_2.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
@@ -230,12 +248,26 @@ def readRFID():
                     new_values = {"$set": data}
                     amount_db_2.update_one({"current": "1"}, new_values)
 
+                    for item in purchasedItems:
+                        item["username"] = user_name
+
                     data = {
                         "purchase":purchasedItems
                     }
 
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_2.insert_one(data)
+
+                    admin_account = admin_db.find_one({"usrnme": adminName})
+                    admin_earning = admin_account["total_earning"]
+
+                    total_earning = admin_earning + amount_to_deduct
+
+                    new_earning = {"$set": {
+                        "total_earning": total_earning
+                    }}
+
+                    admin_db.update_one({"usrnme": adminName}, new_earning)
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -274,6 +306,17 @@ def readRFID():
 
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_3.insert_one(data)
+
+                    admin_account = admin_db.find_one({"usrnme": adminName})
+                    admin_earning = admin_account["total_earning"]
+
+                    total_earning = admin_earning + amount_to_deduct
+
+                    new_earning = {"$set": {
+                        "total_earning": total_earning
+                    }}
+
+                    admin_db.update_one({"usrnme": adminName}, new_earning)
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -312,6 +355,17 @@ def readRFID():
 
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_4.insert_one(data)
+
+                    admin_account = admin_db.find_one({"usrnme": adminName})
+                    admin_earning = admin_account["total_earning"]
+
+                    total_earning = admin_earning + amount_to_deduct
+
+                    new_earning = {"$set": {
+                        "total_earning": total_earning
+                    }}
+
+                    admin_db.update_one({"usrnme": adminName}, new_earning)
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -387,6 +441,17 @@ def readRFID():
 
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_5.insert_one(data)
+
+                    admin_account = admin_db.find_one({"usrnme": adminName})
+                    admin_earning = admin_account["total_earning"]
+
+                    total_earning = admin_earning + amount_to_deduct
+
+                    new_earning = {"$set": {
+                        "total_earning": total_earning
+                    }}
+
+                    admin_db.update_one({"usrnme": adminName}, new_earning)
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -396,6 +461,109 @@ def readRFID():
             
         else:
             return {"msg": "Error, Invalid Admin Name"}
+        
+#--------------------------------------------------------------------------------------------------------
+
+@app.route("/getOrderListAdmin", methods=["GET"])
+def getOrderListAdmin():
+    users = db["client_db_esp"]
+    amount_db = db['current_payment']
+    transaction_details_esp = db['transaction_details_esp']
+
+    amount_db_1 = db['current_payment_1']
+    transaction_details_esp_1 = db['transaction_details_esp_1']
+
+    amount_db_2 = db['current_payment_2']
+    transaction_details_esp_2 = db['transaction_details_esp_2']
+
+    amount_db_3 = db['current_payment_3']
+    transaction_details_esp_3 = db['transaction_details_esp_3']
+
+    amount_db_4 = db['current_payment_4']
+    transaction_details_esp_4 = db['transaction_details_esp_4']
+
+    amount_db_5 = db['current_payment_5']
+    transaction_details_esp_5 = db['transaction_details_esp_5']
+
+    if request.method == "GET":  # and "usrnme" not in session:
+        adminName = request.args.get("adminName")
+
+        if adminName == "admin1":
+            allData = transaction_details_esp_1.find({})
+            data = []
+            for i in allData:
+                if i["purchase"] != None:
+                    data.append(i["purchase"])
+            return data
+        
+        elif adminName == "admin2":
+            allData = transaction_details_esp_2.find({})
+            data = []
+            for i in allData:
+                if i["purchase"] != None:
+                    data.append(i["purchase"])
+            return data
+            
+        elif adminName == "admin3":
+            allData = transaction_details_esp_3.find({})
+            data = []
+            for i in allData:
+                if i["purchase"] != None:
+                    data.append(i["purchase"])
+            return data
+        
+        elif adminName == "admin4":
+            allData = transaction_details_esp_4.find({})
+            data = []
+            for i in allData:
+                if i["purchase"] != None:
+                    data.append(i["purchase"])
+            return data
+            
+        # elif adminName == "admin5":
+        #     if users.find_one({"rfid": rfid}):
+        #         user_account = users.find_one({"rfid": rfid})
+        #         user_balance = user_account["balance"]
+        #         user_balance = int(user_balance)
+        #         amount_to_deduct_obj = amount_db_5.find_one({"current": "1"})
+        #         amount_to_deduct = amount_to_deduct_obj["amount"]
+
+        #         if (int(user_balance)-int(amount_to_deduct)) <= user_balance and int(int(user_balance)-int(amount_to_deduct)) > 0  and amount_to_deduct != 0:
+
+        #             # if amount_to_deduct == 0:
+        #             #     return {"isSuccess": "False", "msg": "No amount deducted"}
+                    
+        #             new_bal = int(user_balance)-int(amount_to_deduct)
+        #             new_data = {"$set": {
+        #                 "balance": new_bal
+        #             }}
+        #             data = {
+        #                 "amount": 0
+        #             }
+        #             users.update_one({"rfid": rfid}, new_data)
+        #             new_values = {"$set": data}
+        #             amount_db_5.update_one({"current": "1"}, new_values)
+
+        #             data = {
+        #                 "purchase":purchasedItems
+        #             }
+
+        #             transaction_details_esp.insert_one(data)
+        #             transaction_details_esp_5.insert_one(data)
+
+        #             return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
+        #         else:
+        #             return {"isSuccess": "False", "msg": "Try Again"}
+        #     else:
+        #         return {"msg": "RFID not found"}
+        
+        elif adminName == "admin5":
+            allData = transaction_details_esp_5.find({})
+            data = []
+            for i in allData:
+                if i["purchase"] != None:
+                    data.append(i["purchase"])
+            return data
         
 #--------------------------------------------------------------------------------------------------------
 
