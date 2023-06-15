@@ -18,6 +18,7 @@ client = MongoClient(
 app.config['MONGO_URI'] = 'mongodb+srv://vercel-admin-user-641df86deec22841cd00f989:U7MK7TOONktRvOOR@cluster0.myy76mk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 app.config['SECRET_KEY'] = 'a6d217d048fdcd227661b755'
 db = client['Admin_BnB']
+db2 = client['BnB_all_customers']
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -205,6 +206,9 @@ def readRFID():
                     data = {
                         "purchase":purchasedItems
                     }
+                    
+                    mycol = db2[user_name]
+                    mycol.insert_one(data)
 
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_1.insert_one(data)
@@ -259,6 +263,9 @@ def readRFID():
                         "purchase":purchasedItems
                     }
 
+                    mycol = db2[user_name]
+                    mycol.insert_one(data)
+
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_2.insert_one(data)
 
@@ -312,6 +319,9 @@ def readRFID():
                         "purchase":purchasedItems
                     }
 
+                    mycol = db2[user_name]
+                    mycol.insert_one(data)
+
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_3.insert_one(data)
 
@@ -364,6 +374,9 @@ def readRFID():
                     data = {
                         "purchase":purchasedItems
                     }
+
+                    mycol = db2[user_name]
+                    mycol.insert_one(data)
 
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_4.insert_one(data)
@@ -455,6 +468,9 @@ def readRFID():
                     data = {
                         "purchase":purchasedItems
                     }
+
+                    mycol = db2[user_name]
+                    mycol.insert_one(data)
 
                     transaction_details_esp.insert_one(data)
                     transaction_details_esp_5.insert_one(data)
