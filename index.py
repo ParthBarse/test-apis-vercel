@@ -198,6 +198,9 @@ def readRFID():
                     new_values = {"$set": data}
                     amount_db_1.update_one({"current": "1"}, new_values)
                     
+                    purchasedItems = [{**item, "username": user_name} for item in purchasedItems]
+                    print(purchasedItems)
+
                     data = {
                         "purchase":purchasedItems
                     }
@@ -249,6 +252,7 @@ def readRFID():
                     amount_db_2.update_one({"current": "1"}, new_values)
 
                     purchasedItems = [{**item, "username": user_name} for item in purchasedItems]
+                    print(purchasedItems)
 
                     data = {
                         "purchase":purchasedItems
@@ -299,6 +303,9 @@ def readRFID():
                     new_values = {"$set": data}
                     amount_db_3.update_one({"current": "1"}, new_values)
 
+                    purchasedItems = [{**item, "username": user_name} for item in purchasedItems]
+                    print(purchasedItems)
+
                     data = {
                         "purchase":purchasedItems
                     }
@@ -347,6 +354,9 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_4.update_one({"current": "1"}, new_values)
+
+                    purchasedItems = [{**item, "username": user_name} for item in purchasedItems]
+                    print(purchasedItems)
 
                     data = {
                         "purchase":purchasedItems
@@ -433,6 +443,9 @@ def readRFID():
                     users.update_one({"rfid": rfid}, new_data)
                     new_values = {"$set": data}
                     amount_db_5.update_one({"current": "1"}, new_values)
+
+                    purchasedItems = [{**item, "username": user_name} for item in purchasedItems]
+                    print(purchasedItems)
 
                     data = {
                         "purchase":purchasedItems
