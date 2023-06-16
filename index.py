@@ -598,26 +598,42 @@ def getOrderListAdmin():
                     data.append(i["purchase"])
             return data
         
+        elif adminName == "admin":
+            allData = transaction_details_esp.find({})
+            data = []
+            for i in allData:
+                if i["purchase"] != None:
+                    data.append(i["purchase"])
+            return data
+        
+        else:
+            return []
+        
 @app.route("/getOrderListClient", methods=["GET"])
 def getOrderListClient():
     users = db["client_db_esp"]
 
-    amount_db_1 = db['current_payment_1']
-    transaction_details_esp_1 = db['transaction_details_esp_1']
-
     if request.method == "GET":  # and "usrnme" not in session:
         username = request.args.get("username")
+
+        logged_user = users.find_one({"usrnme": username})
 
         client_order_db = db2[username]
 
         allData = client_order_db.find({})
 
-        data = []
+        purchase = []
 
         if allData:
             for i in allData:
                 if i["purchase"] != None:
-                    data.append(i["purchase"])
+                    purchase.append(i["purchase"])
+
+            data = {
+                "balance": logged_user['balance'],
+                "purchase": purchase
+            }
+
             return data
 #--------------------------------------------------------------------------------------------------------
 
