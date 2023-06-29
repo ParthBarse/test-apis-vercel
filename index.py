@@ -148,7 +148,7 @@ def getAdminDetails():
 def listToString(s):
     str1 = ""
     for ele in s:
-        str1 += str("\n"+str(ele["productName"]+" x " + str(ele["quantity"]) + str(str(ele["productPrice"]) + "x" + str(ele["quantity"])+" = " + str(ele["productTotalPrice"]))))
+        str1 += str("\n"+str(ele["productName"]+" x " + str(ele["quantity"]) + " - " + str(str(ele["productPrice"]) + "x" + str(ele["quantity"])+" = " + str(ele["productTotalPrice"]))))
     return str1
 
 @app.route("/readRFID", methods=["GET"])
@@ -238,7 +238,7 @@ def readRFID():
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
                     purchasedItems_string = listToString(purchasedItems)
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + str(amount_to_deduct) + "\nRemaining Balance :- " + str(new_bal) + "\n\n Thank You !"
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\n\nTotal Amount Paid :- " + str(amount_to_deduct) + "\nRemaining Balance :- " + str(new_bal) + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
