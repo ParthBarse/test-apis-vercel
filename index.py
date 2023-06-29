@@ -145,6 +145,12 @@ def getAdminDetails():
     
 #--------------------------------------------------------------------------------------------------------
 
+def listToString(s):
+    str1 = ""
+    for ele in s:
+        str1 += ele
+    return str1
+
 @app.route("/readRFID", methods=["GET"])
 def readRFID():
     users = db["client_db_esp"]
@@ -231,7 +237,8 @@ def readRFID():
                     smtp_server.ehlo()
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
@@ -299,7 +306,8 @@ def readRFID():
                     smtp_server.ehlo()
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
@@ -367,7 +375,8 @@ def readRFID():
                     smtp_server.ehlo()
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
@@ -435,7 +444,8 @@ def readRFID():
                     smtp_server.ehlo()
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
@@ -541,7 +551,8 @@ def readRFID():
                     smtp_server.ehlo()
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
