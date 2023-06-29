@@ -148,7 +148,7 @@ def getAdminDetails():
 def listToString(s):
     str1 = ""
     for ele in s:
-        str1 += str(ele["productName"]+" ,")
+        str1 += str("\n"+str(ele["productName"]+" x " + str(ele["quantity"]) + str(str(ele["productPrice"]) + "x" + str(ele["quantity"])+" = " + str(ele["productTotalPrice"]))))
     return str1
 
 @app.route("/readRFID", methods=["GET"])
