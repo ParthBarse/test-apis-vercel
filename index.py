@@ -238,7 +238,7 @@ def readRFID():
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
                     purchasedItems_string = listToString(purchasedItems)
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + str(amount_to_deduct) + "\nRemaining Balance :- " + str(new_bal) + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
@@ -307,7 +307,7 @@ def readRFID():
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
                     purchasedItems_string = listToString(purchasedItems)
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + str(amount_to_deduct) + "\nRemaining Balance :- " + str(new_bal) + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
@@ -376,7 +376,7 @@ def readRFID():
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
                     purchasedItems_string = listToString(purchasedItems)
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + str(amount_to_deduct) + "\nRemaining Balance :- " + str(new_bal) + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
@@ -445,7 +445,7 @@ def readRFID():
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
                     purchasedItems_string = listToString(purchasedItems)
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + str(amount_to_deduct) + "\nRemaining Balance :- " + str(new_bal) + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
@@ -552,7 +552,7 @@ def readRFID():
                     smtp_server.starttls()
                     smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
                     purchasedItems_string = listToString(purchasedItems)
-                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems_string + "\nTotal Amount Paid :- " + str(amount_to_deduct) + "\nRemaining Balance :- " + str(new_bal) + "\n\n Thank You !"
                     message = MIMEText(mail_data)
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
