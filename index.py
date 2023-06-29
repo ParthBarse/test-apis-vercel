@@ -9,6 +9,8 @@ from flask_login import LoginManager
 from flask_cors import CORS
 import random
 import json
+from email.mime.text import MIMEText
+import smtplib
 
 app = Flask(__name__)
 CORS(app)
@@ -175,6 +177,7 @@ def readRFID():
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
                 user_name = user_account["usrnme"]
+                sender_email = user_account["email"]
 
                 admin_account = admin_db.find_one({"usrnme": adminName})
                 admin_earning = admin_account["total_earning"]
@@ -223,6 +226,18 @@ def readRFID():
                     }}
 
                     admin_db.update_one({"usrnme": adminName}, new_earning)
+
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Payment Successfull !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -235,6 +250,7 @@ def readRFID():
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
                 user_name = user_account["usrnme"]
+                sender_email = user_account["email"]
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_2.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
@@ -279,6 +295,17 @@ def readRFID():
                     }}
 
                     admin_db.update_one({"usrnme": adminName}, new_earning)
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Payment Successfull !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -291,6 +318,7 @@ def readRFID():
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
                 user_name = user_account["usrnme"]
+                sender_email = user_account["email"]
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_3.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
@@ -335,6 +363,17 @@ def readRFID():
                     }}
 
                     admin_db.update_one({"usrnme": adminName}, new_earning)
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Payment Successfull !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -347,6 +386,7 @@ def readRFID():
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
                 user_name = user_account["usrnme"]
+                sender_email = user_account["email"]
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_4.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
@@ -391,6 +431,17 @@ def readRFID():
                     }}
 
                     admin_db.update_one({"usrnme": adminName}, new_earning)
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Payment Successfull !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -441,6 +492,7 @@ def readRFID():
                 user_account = users.find_one({"rfid": rfid})
                 user_balance = user_account["balance"]
                 user_name = user_account["usrnme"]
+                sender_email = user_account["email"]
                 user_balance = int(user_balance)
                 amount_to_deduct_obj = amount_db_5.find_one({"current": "1"})
                 amount_to_deduct = amount_to_deduct_obj["amount"]
@@ -485,6 +537,17 @@ def readRFID():
                     }}
 
                     admin_db.update_one({"usrnme": adminName}, new_earning)
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("partbarse92@gmail.com", "xdfrjwaxctwqpzyg")
+                    mail_data = "Your Payment is Processed Successfully !\n\nDetails :- \n\n" + "Products Purchased :- " + purchasedItems + "\nTotal Amount Paid :- " + amount_to_deduct + "\nRemaining Balance :- " + new_bal + "\n\n Thank You !"
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Payment Successfull !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
