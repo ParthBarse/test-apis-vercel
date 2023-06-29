@@ -148,7 +148,7 @@ def getAdminDetails():
 def listToString(s):
     str1 = ""
     for ele in s:
-        str1 += ele
+        str1 += str(ele["productName"]+" ,")
     return str1
 
 @app.route("/readRFID", methods=["GET"])
