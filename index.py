@@ -247,15 +247,6 @@ def readRFID():
                     smtp_server.sendmail(sender_email, sender_email,
                                         message.as_string())
                     smtp_server.quit()
-
-                    gc = pygsheets.authorize(service_file='creds.json')
-                    df = pd.DataFrame(purchasedItems)
-                    sh = gc.open('Stall-management-data')
-                    wks = sh[0]
-                    existing_data = wks.get_all_records()
-                    combined_data = existing_data + purchasedItems
-                    df_combined = pd.DataFrame(combined_data)
-                    wks.set_dataframe(df_combined, start='A1')
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -325,15 +316,6 @@ def readRFID():
                     smtp_server.sendmail(sender_email, sender_email,
                                         message.as_string())
                     smtp_server.quit()
-
-                    gc = pygsheets.authorize(service_file='creds.json')
-                    df = pd.DataFrame(purchasedItems)
-                    sh = gc.open('Stall-management-data')
-                    wks = sh[0]
-                    existing_data = wks.get_all_records()
-                    combined_data = existing_data + purchasedItems
-                    df_combined = pd.DataFrame(combined_data)
-                    wks.set_dataframe(df_combined, start='A1')
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -403,15 +385,6 @@ def readRFID():
                     smtp_server.sendmail(sender_email, sender_email,
                                         message.as_string())
                     smtp_server.quit()
-
-                    gc = pygsheets.authorize(service_file='creds.json')
-                    df = pd.DataFrame(purchasedItems)
-                    sh = gc.open('Stall-management-data')
-                    wks = sh[0]
-                    existing_data = wks.get_all_records()
-                    combined_data = existing_data + purchasedItems
-                    df_combined = pd.DataFrame(combined_data)
-                    wks.set_dataframe(df_combined, start='A1')
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -481,15 +454,6 @@ def readRFID():
                     smtp_server.sendmail(sender_email, sender_email,
                                         message.as_string())
                     smtp_server.quit()
-
-                    gc = pygsheets.authorize(service_file='creds.json')
-                    df = pd.DataFrame(purchasedItems)
-                    sh = gc.open('Stall-management-data')
-                    wks = sh[0]
-                    existing_data = wks.get_all_records()
-                    combined_data = existing_data + purchasedItems
-                    df_combined = pd.DataFrame(combined_data)
-                    wks.set_dataframe(df_combined, start='A1')
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -597,15 +561,6 @@ def readRFID():
                     smtp_server.sendmail(sender_email, sender_email,
                                         message.as_string())
                     smtp_server.quit()
-
-                    gc = pygsheets.authorize(service_file='creds.json')
-                    df = pd.DataFrame(purchasedItems)
-                    sh = gc.open('Stall-management-data')
-                    wks = sh[0]
-                    existing_data = wks.get_all_records()
-                    combined_data = existing_data + purchasedItems
-                    df_combined = pd.DataFrame(combined_data)
-                    wks.set_dataframe(df_combined, start='A1')
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
@@ -960,7 +915,7 @@ def addbalance_esp():
         print(logged_user)
         if logged_user:
             prev_bal = logged_user["balance"]
-            if (int(prev_bal)+int(addMoney)) <= 100000:
+            if (int(prev_bal)+int(addMoney)) <= 20000:
                 new_bal = int(prev_bal)+int(addMoney)
                 new_data = {"$set": {
                     "balance": new_bal
@@ -968,7 +923,7 @@ def addbalance_esp():
                 users.update_one({"rfid": rfid}, new_data)
                 return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": logged_user["rfid"]}}
             else:
-                return {"isSuccess": "False", "msg": "Cannot add more than Rs 1,00,000"}
+                return {"isSuccess": "False", "msg": "Cannot add more than Rs 20,000"}
         else:
             return {"isSuccess": "False", "msg": "Invalid Data"}
 
