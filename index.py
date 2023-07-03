@@ -711,6 +711,34 @@ def getOrderListClient():
             }
 
             return data
+        
+@app.route("/getOrderListClient_to_sheet", methods=["GET"])
+def getOrderListClient_to_sheet():
+    users = db["client_db_esp"]
+
+    if request.method == "GET":  # and "usrnme" not in session:
+        username = request.args.get("username")
+
+        logged_user = users.find_one({"usrnme": username})
+
+        client_order_db = db2[username]
+
+        allData = client_order_db.find({})
+
+        purchase = []
+
+        if allData:
+            for i in allData:
+                if i["purchase"] != None:
+                    purchase.append(i["purchase"])
+        gc = pygsheets.authorize(service_file='creds.json')
+        sh = gc.open('Stall-management-data')
+        wks = sh[0]
+        existing_data = wks.get_all_records()
+        df_combined = pd.DataFrame(purchase)
+        wks.set_dataframe(df_combined, start='A1')
+        return purchase
+            
 #--------------------------------------------------------------------------------------------------------
 
 @app.route("/addClient", methods=["POST"])
@@ -915,7 +943,7 @@ def addbalance_esp():
         print(logged_user)
         if logged_user:
             prev_bal = logged_user["balance"]
-            if (int(prev_bal)+int(addMoney)) <= 20000:
+            if (int(prev_bal)+int(addMoney)) <= 100000:
                 new_bal = int(prev_bal)+int(addMoney)
                 new_data = {"$set": {
                     "balance": new_bal
@@ -923,7 +951,7 @@ def addbalance_esp():
                 users.update_one({"rfid": rfid}, new_data)
                 return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": logged_user["rfid"]}}
             else:
-                return {"isSuccess": "False", "msg": "Cannot add more than Rs 20,000"}
+                return {"isSuccess": "False", "msg": "Cannot add more than Rs 1,00,000"}
         else:
             return {"isSuccess": "False", "msg": "Invalid Data"}
 
