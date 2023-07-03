@@ -960,7 +960,7 @@ def addbalance_esp():
         print(logged_user)
         if logged_user:
             prev_bal = logged_user["balance"]
-            if (int(prev_bal)+int(addMoney)) <= 20000:
+            if (int(prev_bal)+int(addMoney)) <= 100000:
                 new_bal = int(prev_bal)+int(addMoney)
                 new_data = {"$set": {
                     "balance": new_bal
@@ -968,7 +968,7 @@ def addbalance_esp():
                 users.update_one({"rfid": rfid}, new_data)
                 return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": logged_user["rfid"]}}
             else:
-                return {"isSuccess": "False", "msg": "Cannot add more than Rs 20,000"}
+                return {"isSuccess": "False", "msg": "Cannot add more than Rs 1,00,000"}
         else:
             return {"isSuccess": "False", "msg": "Invalid Data"}
 
