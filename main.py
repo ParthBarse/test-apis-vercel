@@ -1,7 +1,6 @@
 import pygsheets
 import pandas as pd
 
-# Authorization
 gc = pygsheets.authorize(service_file='creds.json')
 
 # Define the data
@@ -32,23 +31,10 @@ data = [
     }
 ]
 
-# Convert data to DataFrame
 df = pd.DataFrame(data)
-
-# Open the Google spreadsheet (where 'Stall-management-data' is the name of my sheet)
 sh = gc.open('Stall-management-data')
-
-# Select the first sheet
 wks = sh[0]
-
-# Get existing data from the worksheet
 existing_data = wks.get_all_records()
-
-# Combine existing data with the new data
 combined_data = existing_data + data
-
-# Convert combined data to DataFrame
 df_combined = pd.DataFrame(combined_data)
-
-# Update the entire worksheet with the combined data
 wks.set_dataframe(df_combined, start='A1')
