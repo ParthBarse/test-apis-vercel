@@ -28,8 +28,8 @@ login_manager = LoginManager(app)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = "partbarse92@gmail.com"
-app.config['MAIL_PASSWORD'] = "xdfrjwaxctwqpzyg"
+app.config['MAIL_USERNAME'] = "ic2023wallet@gmail.com"
+app.config['MAIL_PASSWORD'] = "irbnexpguzgxwdgx"
 
 
 @app.route('/')
