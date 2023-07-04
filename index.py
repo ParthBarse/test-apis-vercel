@@ -246,6 +246,8 @@ def readRFID():
                     message["To"] = sender_email
                     smtp_server.sendmail(sender_email, sender_email,
                                         message.as_string())
+                    smtp_server.sendmail("ic2023wallet@gmail.com", "ic2023wallet@gmail.com",
+                                        message.as_string())
                     smtp_server.quit()
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
@@ -320,6 +322,9 @@ def readRFID():
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
                     smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    
+                    smtp_server.sendmail("ic2023wallet@gmail.com", "ic2023wallet@gmail.com",
                                         message.as_string())
                     smtp_server.quit()
                     
@@ -397,6 +402,9 @@ def readRFID():
                     message["To"] = sender_email
                     smtp_server.sendmail(sender_email, sender_email,
                                         message.as_string())
+                    
+                    smtp_server.sendmail("ic2023wallet@gmail.com", "ic2023wallet@gmail.com",
+                                        message.as_string())
                     smtp_server.quit()
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
@@ -471,6 +479,9 @@ def readRFID():
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
                     smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    
+                    smtp_server.sendmail("ic2023wallet@gmail.com", "ic2023wallet@gmail.com",
                                         message.as_string())
                     smtp_server.quit()
                     
@@ -584,6 +595,9 @@ def readRFID():
                     message["Subject"] = "Payment Successfull !"
                     message["To"] = sender_email
                     smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    
+                    smtp_server.sendmail("ic2023wallet@gmail.com", "ic2023wallet@gmail.com",
                                         message.as_string())
                     smtp_server.quit()
                     
