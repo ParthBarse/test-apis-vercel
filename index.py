@@ -250,7 +250,13 @@ def readRFID():
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
-                    return {"isSuccess": "False", "msg": "Try Again"}
+                    data = {
+                        "isSufficient": 0
+                    }
+                    new_values = {"$set": data}
+                    amount_db_1.update_one({"current": "2"}, new_values)
+                    
+                    return {"isSuccess": "False", "msg": "Insufficient Balance"}
             else:
                 return {"isSuccess": "False","msg": "RFID not found"}
         
@@ -319,7 +325,14 @@ def readRFID():
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
-                    return {"isSuccess": "False", "msg": "Try Again"}
+
+                    data = {
+                        "isSufficient": 0
+                    }
+                    new_values = {"$set": data}
+                    amount_db_2.update_one({"current": "2"}, new_values)
+
+                    return {"isSuccess": "False", "msg": "Insufficient Balance"}
             else:
                 return {"msg": "RFID not found"}
             
@@ -388,7 +401,13 @@ def readRFID():
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
-                    return {"isSuccess": "False", "msg": "Try Again"}
+                    data = {
+                        "isSufficient": 0
+                    }
+                    new_values = {"$set": data}
+                    amount_db_3.update_one({"current": "2"}, new_values)
+
+                    return {"isSuccess": "False", "msg": "Insufficient Balance"}
             else:
                 return {"msg": "RFID not found"}
         
@@ -457,7 +476,13 @@ def readRFID():
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
-                    return {"isSuccess": "False", "msg": "Try Again"}
+                    data = {
+                        "isSufficient": 0
+                    }
+                    new_values = {"$set": data}
+                    amount_db_4.update_one({"current": "2"}, new_values)
+
+                    return {"isSuccess": "False", "msg": "Insufficient Balance"}
             else:
                 return {"msg": "RFID not found"}
             
@@ -564,7 +589,13 @@ def readRFID():
                     
                     return {"isSuccess": "True", "details": {"balance": new_bal, "rfid": user_account["rfid"], "username": user_account["usrnme"]}}
                 else:
-                    return {"isSuccess": "False", "msg": "Try Again"}
+                    data = {
+                        "isSufficient": 0
+                    }
+                    new_values = {"$set": data}
+                    amount_db_5.update_one({"current": "2"}, new_values)
+
+                    return {"isSuccess": "False", "msg": "Insufficient Balance"}
             else:
                 return {"msg": "RFID not found"}
             
@@ -714,30 +745,22 @@ def getOrderListClient():
         
 @app.route("/getOrderListClient_to_sheet", methods=["GET"])
 def getOrderListClient_to_sheet():
-    users = db["client_db_esp"]
+    transaction_details_esp = db['transaction_details_esp']
 
     if request.method == "GET":  # and "usrnme" not in session:
-        username = request.args.get("username")
+        allData = transaction_details_esp.find({})
+        data = []
+        for i in allData:
+            if i["purchase"] != None:
+                data = data + i["purchase"]
 
-        logged_user = users.find_one({"usrnme": username})
-
-        client_order_db = db2[username]
-
-        allData = client_order_db.find({})
-
-        purchase = []
-
-        if allData:
-            for i in allData:
-                if i["purchase"] != None:
-                    purchase.append(i["purchase"])
         gc = pygsheets.authorize(service_file='creds.json')
         sh = gc.open('Stall-management-data')
         wks = sh[0]
         existing_data = wks.get_all_records()
-        df_combined = pd.DataFrame(purchase)
+        df_combined = pd.DataFrame(data)
         wks.set_dataframe(df_combined, start='A1')
-        return purchase
+        return data
             
 #--------------------------------------------------------------------------------------------------------
 
@@ -819,6 +842,73 @@ def getAllProduct():
             "pid": user['pid']
         })
     return ans
+
+@app.route("/set_issufficient", methods=["GET"])
+def set_issufficient():
+    admin = request.args.get('adminName')
+    amount_db_1 = db['current_payment_1']
+    amount_db_2 = db['current_payment_2']
+    amount_db_3 = db['current_payment_3']
+    amount_db_4 = db['current_payment_4']
+    amount_db_5 = db['current_payment_5']
+    data = {
+            "isSufficient": 1
+        }
+    new_values = {"$set": data}
+
+    if admin == "admin1":
+        amount_db_1.update_one({"current": "2"}, new_values)
+        return {"isSuccess":True}
+    elif admin == "admin2":
+        amount_db_2.update_one({"current": "2"}, new_values)
+        return {"isSuccess":True}
+    elif admin == "admin3":
+        amount_db_3.update_one({"current": "2"}, new_values)
+        return {"isSuccess":True}
+    elif admin == "admin4":
+        amount_db_4.update_one({"current": "2"}, new_values)
+        return {"isSuccess":True}
+    elif admin == "admin5":
+        amount_db_5.update_one({"current": "2"}, new_values)
+        return {"isSuccess":True}
+    else:
+        return {"isSuccess":False}
+    
+@app.route("/get_issufficient", methods=["GET"])
+def get_issufficient():
+    admin = request.args.get('adminName')
+    amount_db_1 = db['current_payment_1']
+    amount_db_2 = db['current_payment_2']
+    amount_db_3 = db['current_payment_3']
+    amount_db_4 = db['current_payment_4']
+    amount_db_5 = db['current_payment_5']
+    data = {
+            "isSufficient": 0
+        }
+    new_values = {"$set": data}
+
+    if admin == "admin1":
+        dt = amount_db_1.find_one({"current": "2"})
+        isSufficient = dt["isSufficient"]
+        return {"isSuccess":True, "isSufficient":isSufficient}
+    elif admin == "admin2":
+        dt = amount_db_2.find_one({"current": "2"})
+        isSufficient = dt["isSufficient"]
+        return {"isSuccess":True, "isSufficient":isSufficient}
+    elif admin == "admin3":
+        dt = amount_db_3.find_one({"current": "2"})
+        isSufficient = dt["isSufficient"]
+        return {"isSuccess":True, "isSufficient":isSufficient}
+    elif admin == "admin4":
+        dt = amount_db_4.find_one({"current": "2"})
+        isSufficient = dt["isSufficient"]
+        return {"isSuccess":True, "isSufficient":isSufficient}
+    elif admin == "admin5":
+        dt = amount_db_5.find_one({"current": "2"})
+        isSufficient = dt["isSufficient"]
+        return {"isSuccess":True, "isSufficient":isSufficient}
+    else:
+        return {"isSuccess":False}
 
 
 @app.route("/getAllClient", methods=["GET"])
