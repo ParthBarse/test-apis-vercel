@@ -257,6 +257,38 @@ def readRFID():
                     }
                     new_values = {"$set": data}
                     amount_db_1.update_one({"current": "2"}, new_values)
+
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("ic2023wallet@gmail.com", "irbnexpguzgxwdgx")
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Insufficient Balance, Please add Balance to your account."
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Insufficient Balance !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
+
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("ic2023wallet@gmail.com", "irbnexpguzgxwdgx")
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Insufficient Balance, Please add Balance to your account."
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Insufficient Balance !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
                     
                     return {"isSuccess": "False", "msg": "Insufficient Balance"}
             else:
@@ -337,6 +369,22 @@ def readRFID():
                     new_values = {"$set": data}
                     amount_db_2.update_one({"current": "2"}, new_values)
 
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("ic2023wallet@gmail.com", "irbnexpguzgxwdgx")
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Insufficient Balance, Please add Balance to your account."
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Insufficient Balance !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
+
                     return {"isSuccess": "False", "msg": "Insufficient Balance"}
             else:
                 return {"msg": "RFID not found"}
@@ -415,6 +463,22 @@ def readRFID():
                     new_values = {"$set": data}
                     amount_db_3.update_one({"current": "2"}, new_values)
 
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("ic2023wallet@gmail.com", "irbnexpguzgxwdgx")
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Insufficient Balance, Please add Balance to your account."
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Insufficient Balance !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
+
                     return {"isSuccess": "False", "msg": "Insufficient Balance"}
             else:
                 return {"msg": "RFID not found"}
@@ -492,6 +556,22 @@ def readRFID():
                     }
                     new_values = {"$set": data}
                     amount_db_4.update_one({"current": "2"}, new_values)
+
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("ic2023wallet@gmail.com", "irbnexpguzgxwdgx")
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Insufficient Balance, Please add Balance to your account."
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Insufficient Balance !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
 
                     return {"isSuccess": "False", "msg": "Insufficient Balance"}
             else:
@@ -608,6 +688,22 @@ def readRFID():
                     }
                     new_values = {"$set": data}
                     amount_db_5.update_one({"current": "2"}, new_values)
+
+                    smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+                    smtp_server.ehlo()
+                    smtp_server.starttls()
+                    smtp_server.login("ic2023wallet@gmail.com", "irbnexpguzgxwdgx")
+                    purchasedItems_string = listToString(purchasedItems)
+                    mail_data = "Insufficient Balance, Please add Balance to your account."
+                    message = MIMEText(mail_data)
+                    message["Subject"] = "Insufficient Balance !"
+                    message["To"] = sender_email
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    
+                    smtp_server.sendmail(sender_email, sender_email,
+                                        message.as_string())
+                    smtp_server.quit()
 
                     return {"isSuccess": "False", "msg": "Insufficient Balance"}
             else:
