@@ -1159,7 +1159,7 @@ def addbalance_esp():
 def readStatus():
     users = db["lora_status"]
     if request.method == "GET":  # and "usrnme" not in session:
-        logged_user = users.find_one({"id": 1})
+        logged_user = users.find_one({"id": "1"})
         if logged_user["status"] == "1":
             return {"isSuccess": "True", "status": "1"}
         else:
