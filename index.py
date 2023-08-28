@@ -1154,6 +1154,18 @@ def addbalance_esp():
                 return {"isSuccess": "False", "msg": "Cannot add more than Rs 1,00,000"}
         else:
             return {"isSuccess": "False", "msg": "Invalid Data"}
+        
+@app.route("/readStatus", methods=["GET"])
+def readStatus():
+    users = db["lora_status"]
+    if request.method == "GET":  # and "usrnme" not in session:
+        logged_user = users.find_one({"id": 1})
+        if logged_user["status"] == "1":
+            return {"isSuccess": "True", "status": "1"}
+        else:
+            return {"isSuccess": "True", "status": "0"}
+    else:
+        return {"isSuccess": "False", "error":"error"}
 
 # -------------------------------------------------------------------------------------------------------
 
