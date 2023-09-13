@@ -1161,11 +1161,31 @@ def readStatus():
     if request.method == "GET":  # and "usrnme" not in session:
         logged_user = users.find_one({"id": "1"})
         if logged_user["status"] == "1":
-            return {"isSuccess": "True", "status": "1"}
+            return {"isSuccess": "True", "status": "1", "node_id":logged_user["node_id"]}
         else:
-            return {"isSuccess": "True", "status": "0"}
+            return {"isSuccess": "True", "status": "0", "node_id":logged_user["node_id"]}
     else:
         return {"isSuccess": "False", "error":"error"}
+
+@app.route("/updateStatus", methods=["POST"])
+def updateStatus():
+    collection = db["lora_status"]
+    if request.method == "POST":
+        data = request.json
+        new_status = data.get("status")
+        node_status = data.get("node_status")
+
+        if new_status is not None:
+            result = collection.update_one({"id": "1"}, {"$set": {"status": str(new_status), "node_id":str(node_status)}})
+            if result.modified_count > 0:
+                return jsonify({"isSuccess": True, "message": "Status updated successfully"})
+            else:
+                return jsonify({"isSuccess": False, "error": "User not found"}), 404
+        else:
+            return jsonify({"isSuccess": False, "error": "Missing 'status' parameter"}), 400
+    else:
+        return jsonify({"isSuccess": False, "error": "Method not allowed"}), 405
+
 
 # -------------------------------------------------------------------------------------------------------
 
@@ -1178,7 +1198,7 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run()
 
 
 
